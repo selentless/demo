@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Барбершоп «Кедр» — запись на стрижку</title>
+<meta name="description" content="Мужские стрижки, борода, камуфляж седины. Запись онлайн, без очереди.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Rubik:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EEF1F4;
+    --ink: #14213D;
+    --red: #C23B32;
+    --blue: #2F5D9B;
+    --white: #FFFFFF;
+    --muted: #5B6679;
+    --line: #C9D0DA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    padding-bottom: 76px;
+  }
+  h1, h2 { font-family: "Rubik", "Arial Black", sans-serif; font-weight: 800; line-height: 1.05; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  /* шапка */
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; font-weight: 600; }
+  .logo { font-family: "Rubik", sans-serif; font-weight: 800; font-size: 20px; text-decoration: none; }
+  .top a.tel { text-decoration: none; color: var(--muted); }
+
+  /* главный экран: полоса парикмахерского столба слева, это главный образ страницы */
+  .hero { display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 28px 0 56px; }
+  .pole {
+    border-radius: 28px;
+    background: repeating-linear-gradient(135deg, var(--red) 0 22px, var(--white) 22px 44px, var(--blue) 44px 66px, var(--white) 66px 88px);
+    background-size: 124px 124px;
+    border: 3px solid var(--ink);
+    animation: spin 5s linear infinite;
+    min-height: 320px;
+  }
+  @keyframes spin { to { background-position: 0 124px; } }
+  @media (prefers-reduced-motion: reduce) { .pole { animation: none; } }
+
+  .hero h1 { font-size: clamp(38px, 9vw, 76px); letter-spacing: -0.02em; margin-bottom: 20px; }
+  .hero p { font-size: 18px; max-width: 46ch; color: var(--muted); margin-bottom: 28px; }
+  .btn {
+    display: inline-block; background: var(--red); color: var(--white);
+    padding: 16px 28px; border-radius: 12px; font-weight: 600; font-size: 17px; text-decoration: none;
+    border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  }
+  .btn:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+  .hint { margin-top: 14px; font-size: 14px; color: var(--muted); }
+
+  section { padding: 48px 0; border-top: 2px solid var(--ink); }
+  h2 { font-size: clamp(28px, 6vw, 40px); margin-bottom: 24px; }
+
+  /* прайс: строки с точками между названием и ценой */
+  .price { list-style: none; max-width: 640px; }
+  .price li { display: flex; align-items: baseline; gap: 10px; padding: 12px 0; font-size: 18px; }
+  .price li::after { content: ""; order: 1; flex: 1; border-bottom: 2px dotted var(--line); }
+  .price b { order: 2; font-family: "Rubik", sans-serif; white-space: nowrap; }
+  .price small { display: block; font-size: 14px; color: var(--muted); }
+
+  .info { display: grid; gap: 28px; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .info { grid-template-columns: 1fr 1fr; } }
+  .info h3 { font-family: "Rubik", sans-serif; font-size: 18px; margin-bottom: 8px; }
+  .hours { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; }
+  .hours dt { color: var(--muted); }
+
+  footer { padding: 28px 0 40px; border-top: 2px solid var(--ink); color: var(--muted); font-size: 14px; }
+
+  /* кнопка записи всегда внизу экрана на телефоне */
+  .sticky {
+    position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 20px;
+    background: var(--bg); border-top: 2px solid var(--ink);
+    display: flex; gap: 12px; z-index: 5;
+  }
+  .sticky a { flex: 1; text-align: center; padding: 14px; border-radius: 12px; font-weight: 600; text-decoration: none; border: 3px solid var(--ink); }
+  .sticky .call { background: var(--red); color: var(--white); }
+  .sticky .tg { background: var(--white); }
+  @media (min-width: 900px) { .sticky { display: none; } body { padding-bottom: 0; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#">Кедр</a>
+    <!-- замени номер на настоящий -->
+    <a class="tel" href="tel:+79000000000">+7 (900) 000-00-00</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="pole" aria-hidden="true"></div>
+      <div>
+        <!-- главный заголовок: поменяй под клиента -->
+        <h1>Стрижка за 40 минут. Без очереди.</h1>
+        <p>Барбершоп в центре города. Запись по времени, поэтому вы приходите и садитесь в кресло, а не ждёте на диване.</p>
+        <a class="btn" href="tel:+79000000000">Записаться по телефону</a>
+        <p class="hint">Или напишите в Telegram, ответим в течение часа.</p>
+      </div>
+    </div>
+
+    <section id="uslugi">
+      <h2>Услуги и цены</h2>
+      <!-- цены и услуги просто правятся прямо в тексте -->
+      <ul class="price">
+        <li><span>Мужская стрижка<small>машинка и ножницы, мытьё головы</small></span><b>1 500 ₽</b></li>
+        <li><span>Стрижка под машинку<small>одна насадка</small></span><b>1 000 ₽</b></li>
+        <li><span>Борода<small>форма, контур, горячее полотенце</small></span><b>900 ₽</b></li>
+        <li><span>Стрижка и борода<small>комплекс со скидкой</small></span><b>2 200 ₽</b></li>
+        <li><span>Детская стрижка<small>до 12 лет</small></span><b>1 000 ₽</b></li>
+        <li><span>Камуфляж седины</span><b>800 ₽</b></li>
+      </ul>
+    </section>
+
+    <section id="kontakty">
+      <h2>Как нас найти</h2>
+      <div class="info">
+        <div>
+          <h3>Адрес</h3>
+          <!-- вставь настоящий адрес -->
+          <p>г. Ваш город, ул. Примерная, 12<br>вход со двора, второй этаж</p>
+        </div>
+        <div>
+          <h3>Часы работы</h3>
+          <dl class="hours">
+            <dt>Пн-Пт</dt><dd>10:00-21:00</dd>
+            <dt>Сб</dt><dd>10:00-19:00</dd>
+            <dt>Вс</dt><dd>выходной</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <!-- имя и ник замени на свои, чтобы клиенты видели, кто сделал сайт -->
+    © Барбершоп «Кедр». Сайт сделал: ваше имя, Telegram @ваш_ник
+  </footer>
+</div>
+
+<div class="sticky">
+  <a class="call" href="tel:+79000000000">Позвонить</a>
+  <a class="tg" href="https://t.me/your_nick">Telegram</a>
+</div>
+
+</body>
+</html>
